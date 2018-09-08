@@ -308,6 +308,7 @@ public class MainGUI {
                     // textArea.setText("Ontology Concepts: " + System.lineSeparator() +
                     // allConcepts);
                     DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) MainGUI.tree.getModel().getRoot();
+                    rootNode.removeAllChildren();
                     RequirementAction r = (RequirementAction) rootNode.getUserObject();
                     r.setName(newProjectLocation.getText());
                     DefaultTreeModel t = (DefaultTreeModel) MainGUI.tree.getModel();
