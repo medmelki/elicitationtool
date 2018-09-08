@@ -20,7 +20,6 @@ public class OptionTreePopup extends JPopupMenu {
 	public OptionTreePopup(JTree tree) {
 		JMenuItem itemAddPos = new JMenuItem("Add Positive");
 		JMenuItem itemAddNeg = new JMenuItem("Add Negative");
-		JMenuItem itemAddQue = new JMenuItem("Add Question");
 		JMenuItem itemDelete = new JMenuItem("Delete");
 		itemDelete.addActionListener(new ActionListener() {
 
@@ -78,30 +77,9 @@ public class OptionTreePopup extends JPopupMenu {
 			}
 		});
 
-		itemAddQue.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				String statement = JOptionPane.showInputDialog("Insert Question: ");
-				if (statement == null || statement == "")
-					return;
-
-				DefaultMutableTreeNode selectedNode = MainGUI.selectedNode;
-
-				RequirementAction QuestionAction = new RequirementAction("Question: " + statement,
-						new ImageIcon("resources\\questionmark.png"), DiscussionType.QUESTION);
-				DefaultMutableTreeNode optionNode = new DefaultMutableTreeNode(QuestionAction);
-				// selectedNode.add(optionNode);
-				DefaultTreeModel model = (DefaultTreeModel) MainGUI.tree.getModel();
-				model.insertNodeInto(optionNode, selectedNode, selectedNode.getChildCount());
-				model.reload();
-				MainGUI.expandAllNodes(MainGUI.tree, 0, MainGUI.tree.getRowCount());
-			}
-		});
-
 		add(itemAddPos);
 		add(new JSeparator());
 		add(itemAddNeg);
-		add(new JSeparator());
-		add(itemAddQue);
 		add(new JSeparator());
 
 		add(itemDelete);
