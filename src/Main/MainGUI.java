@@ -360,47 +360,46 @@ public class MainGUI {
                         RequirementAction statementAction = (RequirementAction) statementNode.getUserObject();
                         System.out.println("Statment to Generate: " + statementAction.getName());
 
+                        HashMap<String, List<OptionScore>> questionOptionScore = StatementTreePopup
+                                .printNode(statementNode);
+                        // System.out.println(questionOptionScore);
+
+                        // PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+                        // System.out.println("file path: " + file.getPath());
+                        writer.append(String.valueOf(i + 1)).append(". ");
                         if (statementAction.isChecked()) {
-                            HashMap<String, List<OptionScore>> questionOptionScore = StatementTreePopup
-                                    .printNode(statementNode);
-                            // System.out.println(questionOptionScore);
-
-                            // PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-                            // System.out.println("file path: " + file.getPath());
-                            writer.append((i + 1) + ". " + statementAction.getName() + System.lineSeparator());
                             writerFull.append((i + 1) + ". " + statementAction.getName() + System.lineSeparator());
-                            for (String question : questionOptionScore.keySet()) {
+                        }
+                        for (String question : questionOptionScore.keySet()) {
+                            if (statementAction.isChecked()) {
                                 writerFull.append("\t " + question + System.lineSeparator());
-                                List<OptionScore> questionOptions = questionOptionScore.get(question);
-                                for (OptionScore os : questionOptions) {
-                                    RequirementAction ra = (RequirementAction) os.getOptionNode().getUserObject();
-                                    if (ra.isChecked()) {
-                                        // writer.append("\t \t Option: " + os.getOption() + "( score: " + os.getScore()
-                                        // + " )" + System.lineSeparator());
+                            }
+                            List<OptionScore> questionOptions = questionOptionScore.get(question);
+                            for (OptionScore os : questionOptions) {
+                                RequirementAction ra = (RequirementAction) os.getOptionNode().getUserObject();
+                                if (statementAction.isChecked() && ra.isChecked()) {
+                                    // writer.append("\t \t Option: " + os.getOption() + "( score: " + os.getScore()
+                                    // + " )" + System.lineSeparator());
 
-                                        if (ra.getAgreedRequirement() != null && ra.getAgreedRequirement() != "") {
-                                            writerFull.append("\t \t " + os.getOption() + " (" + ra.getAgreedRequirement() + ")" + System.lineSeparator());
-                                            DefaultMutableTreeNode optionNode = (DefaultMutableTreeNode) os.getOptionNode();
-                                            for (int j = 0; j < optionNode.getChildCount(); j++) {
-                                                DefaultMutableTreeNode criiteriaNode = (DefaultMutableTreeNode) optionNode.getChildAt(j);
-                                                RequirementAction CriteriaAction = (RequirementAction) criiteriaNode.getUserObject();
-                                                if (CriteriaAction.getDiscussionType().equals(DiscussionType.POSITIVE_CRITERIA)) {
-                                                    writerFull.append("\t \t \t " + CriteriaAction.getName() + System.lineSeparator());
-                                                } else {
-                                                    writerFull.append("\t \t \t " + CriteriaAction.getName() + System.lineSeparator());
-                                                }
+                                    if (ra.getAgreedRequirement() != null && ra.getAgreedRequirement() != "") {
+                                        writerFull.append("\t \t " + os.getOption() + " (" + ra.getAgreedRequirement() + ")" + System.lineSeparator());
+                                        DefaultMutableTreeNode optionNode = (DefaultMutableTreeNode) os.getOptionNode();
+                                        for (int j = 0; j < optionNode.getChildCount(); j++) {
+                                            DefaultMutableTreeNode criiteriaNode = (DefaultMutableTreeNode) optionNode.getChildAt(j);
+                                            RequirementAction CriteriaAction = (RequirementAction) criiteriaNode.getUserObject();
+                                            if (CriteriaAction.getDiscussionType().equals(DiscussionType.POSITIVE_CRITERIA)) {
+                                                writerFull.append("\t \t \t " + CriteriaAction.getName() + System.lineSeparator());
+                                            } else {
+                                                writerFull.append("\t \t \t " + CriteriaAction.getName() + System.lineSeparator());
                                             }
-
-                                            writer.append(
-                                                    "\t \t -> " + ra.getAgreedRequirement() + System.lineSeparator());
-
                                         }
                                     }
                                 }
-
+                                writer.append(ra.getAgreedRequirement() + System.lineSeparator());
                             }
 
                         }
+
                     }
                     writer.close();
                     writerFull.close();
