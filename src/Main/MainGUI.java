@@ -346,13 +346,13 @@ public class MainGUI {
                 }
                 try {
                     PrintWriter writer = new PrintWriter(file.getPath() + ".txt", "UTF-8");
-                    PrintWriter writer2 = new PrintWriter(file.getPath() + "_full.txt", "UTF-8");
+                    PrintWriter writerFull = new PrintWriter(file.getPath() + "_full.txt", "UTF-8");
                     DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) MainGUI.tree.getModel().getRoot();
                     RequirementAction r = (RequirementAction) rootNode.getUserObject();
 
                     String projectName = r.getName();
                     writer.append("Project: " + projectName + System.lineSeparator());
-                    writer2.append("Project: " + projectName + System.lineSeparator());
+                    writerFull.append("Project: " + projectName + System.lineSeparator());
 
                     DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
                     for (int i = 0; i < root.getChildCount(); i++) {
@@ -368,9 +368,9 @@ public class MainGUI {
                             // PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
                             // System.out.println("file path: " + file.getPath());
                             writer.append((i + 1) + ". " + statementAction.getName() + System.lineSeparator());
-                            writer2.append((i + 1) + ". " + statementAction.getName() + System.lineSeparator());
+                            writerFull.append((i + 1) + ". " + statementAction.getName() + System.lineSeparator());
                             for (String question : questionOptionScore.keySet()) {
-                                writer2.append("\t " + question + System.lineSeparator());
+                                writerFull.append("\t " + question + System.lineSeparator());
                                 List<OptionScore> questionOptions = questionOptionScore.get(question);
                                 for (OptionScore os : questionOptions) {
                                     RequirementAction ra = (RequirementAction) os.getOptionNode().getUserObject();
@@ -379,15 +379,15 @@ public class MainGUI {
                                         // + " )" + System.lineSeparator());
 
                                         if (ra.getAgreedRequirement() != null && ra.getAgreedRequirement() != "") {
-                                            writer2.append("\t \t " + os.getOption() + " (" + ra.getAgreedRequirement() + ")" + System.lineSeparator());
+                                            writerFull.append("\t \t " + os.getOption() + " (" + ra.getAgreedRequirement() + ")" + System.lineSeparator());
                                             DefaultMutableTreeNode optionNode = (DefaultMutableTreeNode) os.getOptionNode();
                                             for (int j = 0; j < optionNode.getChildCount(); j++) {
                                                 DefaultMutableTreeNode criiteriaNode = (DefaultMutableTreeNode) optionNode.getChildAt(j);
                                                 RequirementAction CriteriaAction = (RequirementAction) criiteriaNode.getUserObject();
                                                 if (CriteriaAction.getDiscussionType().equals(DiscussionType.POSITIVE_CRITERIA)) {
-                                                    writer2.append("\t \t \t " + CriteriaAction.getName() + System.lineSeparator());
+                                                    writerFull.append("\t \t \t " + CriteriaAction.getName() + System.lineSeparator());
                                                 } else {
-                                                    writer2.append("\t \t \t " + CriteriaAction.getName() + System.lineSeparator());
+                                                    writerFull.append("\t \t \t " + CriteriaAction.getName() + System.lineSeparator());
                                                 }
                                             }
 
@@ -403,7 +403,7 @@ public class MainGUI {
                         }
                     }
                     writer.close();
-                    writer2.close();
+                    writerFull.close();
                     JOptionPane.showMessageDialog(null, "Document Generated");
                 } catch (Exception e) {
                     e.printStackTrace();
