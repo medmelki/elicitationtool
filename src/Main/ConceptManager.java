@@ -40,16 +40,16 @@ public class ConceptManager {
 
 		Set<OWLNamedClass> matchedConecpets = new HashSet<OWLNamedClass>();
 		allVerbsNouns.forEach(item -> {
-			OWLNamedClass concept = OntologyHelper.findByCustomEqualFunction(item, OpennlpHelper::equaIsgnoreForm);
+			OWLNamedClass concept = OntologyHelper.findByCustomEqualFunction(item, OpennlpHelper::equalOrSynonymStems);
 			if (concept != null)
 				matchedConecpets.add(concept);
 		});
 
 		// = OntologyHelper.findByCustomEqualFunction("Buckets",
-		// OpennlpHelper::equaIsgnoreForm);
+		// OpennlpHelper::equalOrSynonymStems);
 		// System.out.println(conceptToFind + " is matched with : "
 		// + OntologyHelper.findByCustomEqualFunction("Buckets",
-		// OpennlpHelper::equaIsgnoreForm).getBrowserText());
+		// OpennlpHelper::equalOrSynonymStems).getBrowserText());
 		return matchedConecpets;
 
 	}
