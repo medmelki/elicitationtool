@@ -12,9 +12,9 @@ import javax.swing.tree.DefaultTreeModel;
 
 import Main.MainGUI;
 
-public class NegativeTreePopup extends JPopupMenu {
+public class OptionItemTreePopup extends JPopupMenu {
 
-	public NegativeTreePopup() {
+	public OptionItemTreePopup() {
 		super();
 		JMenuItem itemDelete = new JMenuItem("Delete");
 		itemDelete.addActionListener(new ActionListener() {
