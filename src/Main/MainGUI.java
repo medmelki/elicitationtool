@@ -1,5 +1,6 @@
 package Main;
 
+import Main.utils.Constants;
 import edu.stanford.smi.protegex.owl.model.OWLNamedClass;
 import ui.events.RequirementTreeMouseListener;
 import ui.jtree.DiscussionType;
@@ -497,7 +498,8 @@ public class MainGUI {
             }
         });
 
-        RequirementAction rootAction = new RequirementAction("Please Create New Project", null, DiscussionType.ROOT);
+        RequirementAction rootAction = new RequirementAction(
+                Constants.WELCOME_LABEL, null, DiscussionType.ROOT);
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(rootAction);
 
         tree = new JTree(root);
