@@ -326,12 +326,12 @@ public class MainGUI {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("Doc: ");
                 List<String> notMatched = new ArrayList<String>();
-                isAllMatched(notMatched);
-                System.out.println("Not Matched !: " + notMatched);
-                JOptionPane.showMessageDialog(null,
-                        "The requirements list is not complete; some requirements are missing. Specfically, "
-                                + notMatched);
-
+                if (!isAllMatched(notMatched)) {
+                    System.out.println("Not Matched !: " + notMatched);
+                    JOptionPane.showMessageDialog(null,
+                            "The requirements list is not complete; some requirements are missing. Specfically, "
+                                    + notMatched);
+                }
                 JFileChooser fileChooser = new JFileChooser();
                 File file = null;
                 if (fileChooser.showSaveDialog(MainGUI.frame) == JFileChooser.APPROVE_OPTION) {
