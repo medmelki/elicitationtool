@@ -353,6 +353,7 @@ public class MainGUI {
                     writerFull.append("Project: " + projectName + System.lineSeparator());
 
                     DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
+                    int k = 0;
                     for (int i = 0; i < root.getChildCount(); i++) {
                         DefaultMutableTreeNode statementNode = (DefaultMutableTreeNode) root.getChildAt(i);
                         RequirementAction statementAction = (RequirementAction) statementNode.getUserObject();
@@ -364,7 +365,6 @@ public class MainGUI {
 
                         // PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
                         // System.out.println("file path: " + file.getPath());
-                        writer.append(String.valueOf(i + 1)).append(". ");
                         if (statementAction.isChecked()) {
                             writerFull.append((i + 1) + ". " + statementAction.getName() + System.lineSeparator());
                         }
@@ -393,6 +393,7 @@ public class MainGUI {
                                         }
                                     }
                                 }
+                                writer.append(String.valueOf(++k)).append(". ");
                                 writer.append(ra.getAgreedRequirement() + System.lineSeparator());
                             }
 
