@@ -375,7 +375,7 @@ public class MainGUI {
                             List<OptionScore> questionOptions = questionOptionScore.get(question);
                             for (OptionScore os : questionOptions) {
                                 RequirementAction ra = (RequirementAction) os.getOptionNode().getUserObject();
-                                if (statementAction.isChecked() && ra.isChecked()) {
+                                if (statementAction.isChecked()) {
                                     // writer.append("\t \t Option: " + os.getOption() + "( score: " + os.getScore()
                                     // + " )" + System.lineSeparator());
 
